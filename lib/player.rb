@@ -28,6 +28,6 @@ class Player
   
   # Shoots at the opponents board.
   def shoot(at_coordinates, opponent_board)
-    opponent_board.register_shot(at_coordinates))
+    opponent_board.register_shot(at_coordinates)
   end
 end
