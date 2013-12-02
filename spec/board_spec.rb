@@ -31,17 +31,19 @@ describe Board do
       expect(board.valid?(board.generate_valid_ship_position(6))).to be_true
     end
 
-    xit 'should not put two ships next to each other' do
+    it 'should not put two ships next to each other' do
       player = double :player
       board = Board.new(player)
-      (0..9).each do |row|
-        (0..9).each do |column|
-          if board.rows[row][column] == 's'
-            if board.rows[row+1][column] == 's' || board.rows[row-1][column] =='s'
-              # could be nil if at edge, nil.to_s == '' 
-              expect(board.rows[row][column+1].to_s).to eq ''
-              expect(board.rows[row][column-1].to_s).to eq ''
-            end
+      board.iterate_board_index do |row, column|
+        if board.value_at(row, column) == 's'
+          if board.value_at(row+1, column) == 's' || board.value_at(row-1, column) =='s'
+            # could be nil if at edge, nil.to_s == '' 
+            expect(board.value_at(row, column+1).to_s).to eq ''
+            expect(board.value_at(row, column-1).to_s).to eq ''
+          elsif board.value_at(row, column+1) == 's' || board.value_at(row, column-1) =='s'
+            # could be nil if at edge, nil.to_s == '' 
+            expect(board.value_at(row+1, column).to_s).to eq ''
+            expect(board.value_at(row-1, column).to_s).to eq ''
           end
         end
       end

@@ -7,17 +7,20 @@ class Board
   
   def initialize_rows
     rows = Array.new(10).map!{Array.new(10)}
-
-    (0..9).each do |row|
-      (0..9).each do |column|
-        rows[row][column] ||= ''
-      end
-    end
+    iterate_board_index{|row, column| rows[row][column] ||= ''}
     rows
   end
 
+  def iterate_board_index 
+    (0..9).each do |row|
+      (0..9).each do |column|
+        yield(row, column)
+      end
+    end
+  end
+
   def value_at(row, column)
-    rows[row][column]
+    rows[row][column] if !rows[row].nil?
   end
 
   def add_ships
@@ -34,7 +37,9 @@ class Board
   def generate_valid_ship_position(size)
     loop do
       candidate_cells = generate_ship_position(size)
-      return candidate_cells if valid?(candidate_cells)
+      puts 'in loop'
+      # return candidate_cells if valid?(candidate_cells)
+      return candidate_cells if valid2?(candidate_cells)
     end
   end
 
@@ -42,6 +47,18 @@ class Board
     candidate_values = candidate_cells.map{|coords| value_at(coords[0], coords[1])}
     candidate_values.all?{|value| value == ''} # and not touching other ships
   end
+
+  def valid2?(candidate_cells)
+    candidate_cells.each do |cell| 
+      return false if value_at(cell[0], cell[1]).to_s != ''
+      return false if value_at(cell[0]+1, cell[1]).to_s != ''
+      return false if value_at(cell[0]-1, cell[1]).to_s != ''
+      return false if value_at(cell[0], cell[1]+1).to_s != ''
+      return false if value_at(cell[0], cell[1]-1).to_s != ''
+    end
+    true
+  end
+
 
   def generate_ship_position(size)
     if rand(2).zero? 
