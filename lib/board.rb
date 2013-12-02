@@ -49,13 +49,14 @@ class Board
 
   def valid?(candidate_cells)
     candidate_cells.each do |cell| 
-      return false if [
-        value_at(cell[0], cell[1]).to_s != '',
-      value_at(cell[0]+1, cell[1]).to_s != '',
-      value_at(cell[0]-1, cell[1]).to_s != '',
-      value_at(cell[0], cell[1]+1).to_s != '',
-      value_at(cell[0], cell[1]-1).to_s != ''
-                      ].any?
+      # Invalid if any surrounding cell is non-empty
+      return false if ![
+      value_at(cell[0], cell[1]).to_s,
+      value_at(cell[0]+1, cell[1]).to_s,
+      value_at(cell[0]-1, cell[1]).to_s,
+      value_at(cell[0], cell[1]+1).to_s,
+      value_at(cell[0], cell[1]-1).to_s
+      ].all?(&:empty?)
     end
     true
   end
