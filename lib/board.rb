@@ -1,13 +1,12 @@
-  class Board
+class Board
   def initialize player
     @player = player
     @rows = initialize_rows
+    add_ships
   end
   
   def initialize_rows
     rows = Array.new(10).map!{Array.new(10)}
-
-    add_ships
 
     (0..9).each do |row|
       (0..9).each do |column|
@@ -17,8 +16,29 @@
     rows
   end
 
+  def value_at(row, column)
+    rows[row][column]
+  end
+
   def add_ships
-    rows[rand(10)][rand(10)]
+    generate_valid_ship_position.each{|cell| rows[cell[0]][cell[1]] = 's'}
+  end
+
+  def generate_valid_ship_position
+    candidate_cells = generate_ship_position until valid?(candiate_cells)
+  end
+
+  def valid?(candidate_cells)
+    candidate_values = candidate_cells.map{|coords| value_at(coords[0], coords[1])}
+    candidate_values.all?{|value| value == ''} # and not touching other ships
+  end
+
+  def generate_ship_position
+    row, column = rand(5), rand(5) #starting
+    puts row, column
+    # direction = [:right, :down].sample
+    # if true # DIRECTION IS RIGHT
+    candidate_cells = (0..5).map{|i| [row, column+i]}
   end
 
   def owner
