@@ -7,16 +7,6 @@ class Board
   
   def initialize_rows
     rows = Array.new(10,'').map!{Array.new(10,'')}
-    # iterate_board_index{|row, column| rows[row][column] ||= ''}
-    rows
-  end
-
-  def iterate_board_index 
-    (0..9).each do |row|
-      (0..9).each do |column|
-        yield(row, column)
-      end
-    end
   end
 
   def value_at(row, column)

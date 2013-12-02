@@ -1,5 +1,14 @@
 require 'board'
 
+# Testing-only helper function
+def iterate_board_index 
+  (0..9).each do |row|
+    (0..9).each do |column|
+      yield(row, column)
+    end
+  end
+end
+
 describe Board do
 
   context 'initialization' do    
@@ -28,7 +37,7 @@ describe Board do
     it 'should not put two ships next to each other' do
       player = double :player
       board = Board.new(player)
-      board.iterate_board_index do |row, column|
+      iterate_board_index do |row, column|
         if board.value_at(row, column) == 's'
           if board.value_at(row+1, column) == 's' || board.value_at(row-1, column) =='s'
             # could be nil if at edge, nil.to_s == '' 
