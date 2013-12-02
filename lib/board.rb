@@ -74,7 +74,11 @@ class Board
   end
 
   def to_s
-    rows.each{|row| print "#{row.map{|c| c == "" ? "." : c}.join}\n"}
+    rows.map do |row| 
+      row.map do |cell| 
+        cell == "" ? "." : cell
+      end.join(' ')
+    end.join("\n")
   end
 
   def owner
