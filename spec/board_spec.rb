@@ -73,6 +73,15 @@ describe Board do
       expect(board.rows).to eq([['o','x','s','o']])
     end
 
+    it 'should register a shot on a ship with an x' do
+      player = double :player
+      board = Board.new(player)
+      board.instance_variable_set(:@rows,[['o','x','s','']])
+      board.register_shot("C1")
+      puts board
+      expect(board.rows).to eq([['o','x','x','']])
+    end
+
     it "opponent view should not show ships" do
       player = double :player
       board = Board.new(player)

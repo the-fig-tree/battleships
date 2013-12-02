@@ -3,7 +3,6 @@ class Board
     @player = player
     @rows = initialize_rows
     add_ships
-    puts self
   end
   
   def initialize_rows
@@ -21,7 +20,7 @@ class Board
   end
 
   def value_at(row, column)
-    # needed to stop wraparound
+    # valid? needs this to return nil for column = -1, not the 10th column
     return nil if column < 0 || row < 0
     rows[row][column] if !rows[row].nil?
   end
@@ -38,21 +37,15 @@ class Board
   end
   
   def add_ship_of_size(size)
-    generate_valid_ship_position(size).each{|cell| rows[cell[0]][cell[1]] = 's'}
+    generate_valid_ship_position(size).each{|cell| set_value_at(*cell, 's')}
   end
 
   def generate_valid_ship_position(size)
     loop do
       candidate_cells = generate_ship_position(size)
-      # return candidate_cells if valid?(candidate_cells)
       return candidate_cells if valid?(candidate_cells)
     end
   end
-
-  # def valid?(candidate_cells)
-  #   candidate_values = candidate_cells.map{|coords| value_at(coords[0], coords[1])}
-  #   candidate_values.all?{|value| value == ''} # and not touching other ships
-  # end
 
   def valid?(candidate_cells)
     candidate_cells.each do |cell| 
@@ -92,11 +85,8 @@ class Board
   # just hitting the water.
   def register_shot(input)
     co_ords = coordinate_parse(input)
-    if value_at(*co_ords) == ''
-     set_value_at(*co_ords, 'o')
-    elsif value_at(*co_ords) == 's'
-     set_value_at(*co_ords, 'x')
-    end 
+    map = {'' => 'o', 's' => 'x'}
+    set_value_at(*co_ords, map[value_at(*co_ords)])
   end
 
   def coordinate_parse(input)
