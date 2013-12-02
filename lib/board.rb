@@ -121,6 +121,8 @@ class Board
   # elements each (as in rows) replacing the ships with an empty
   # string ('') so that your opponent cannot see your ships.
   def opponent_view
-    # like rows but with what the text just above says done
+    rows.map do |row|
+      row.map {|cell| cell == 's' ? '' : cell }
+    end
   end
 end
