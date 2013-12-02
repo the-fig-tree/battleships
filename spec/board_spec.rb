@@ -26,10 +26,9 @@ describe Board do
     end  
 
 
-    xit 'should have 6 s values in a row after adding aircraft carrier' do
+    it 'should have 6 s values in a row after adding aircraft carrier' do
       player = double :player
       board = Board.new(player)
-      # board.add_ships
       expect(board.rows.flatten.select{|c| c == 's'}.count).to eq 6
     end
 

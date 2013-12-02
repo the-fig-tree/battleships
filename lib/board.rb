@@ -2,7 +2,7 @@ class Board
   def initialize player
     @player = player
     @rows = initialize_rows
-    # add_ships
+    add_ships
   end
   
   def initialize_rows
