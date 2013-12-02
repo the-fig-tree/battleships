@@ -87,9 +87,16 @@ class Board
   # This method should register the shot at the coordinates passed
   # hitting a ship or
   # just hitting the water.
-  def register_shot at_coordinates  
-  
+  def register_shot(at_coordinates)
+    coordinate_parse(at_coordinates)
+    # turn s to x and '' to o
   end
+
+  def coordinate_parse(letter_and_number)
+    # A3 -> [2,0]
+    return number_pair
+  end
+
   
   # This method returns an array containing 10 arrays with 10 
   # elements each where:
@@ -108,5 +115,6 @@ class Board
   # elements each (as in rows) replacing the ships with an empty
   # string ('') so that your opponent cannot see your ships.
   def opponent_view
+    # like rows but with what the text just above says done
   end
 end

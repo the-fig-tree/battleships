@@ -10,10 +10,10 @@ describe Player do
 
 
   it 'should have board' do 
-    expect(player.board).to eq("board")
+    expect(player.board).to be_a(Board)
   end
 
-  xit 'should know if there are still floating ships' do
+  it 'should know if there are still floating ships' do
     expect(player.has_ships_still_floating?).to be_true
   end
   

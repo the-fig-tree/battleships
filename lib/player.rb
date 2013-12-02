@@ -8,7 +8,7 @@ class Player
   # positioning of your ships on the board.
   def initialize (name)
     @name = name
-    @board = "board"
+    @board = Board.new(name)
   end
 
   def name
@@ -28,5 +28,6 @@ class Player
   
   # Shoots at the opponents board.
   def shoot(at_coordinates, opponent_board)
+    opponent_board.register_shot(at_coordinates))
   end
 end
