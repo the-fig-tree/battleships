@@ -29,7 +29,6 @@ describe Board do
       player = double :player
       board = Board.new(player)
       board.iterate_board_index do |row, column|
-        puts "testing #{row}, #{column}"
         if board.value_at(row, column) == 's'
           if board.value_at(row+1, column) == 's' || board.value_at(row-1, column) =='s'
             # could be nil if at edge, nil.to_s == '' 

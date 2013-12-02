@@ -3,6 +3,7 @@ class Board
     @player = player
     @rows = initialize_rows
     add_ships
+    puts self
   end
   
   def initialize_rows
@@ -27,17 +28,9 @@ class Board
 
   def add_ships
     add_ship_of_size(6)
-    puts "added 6"
-    puts self
     2.times {add_ship_of_size(4)}
-    puts 'added fours'
-    puts self
     2.times {add_ship_of_size(3)}
-    puts 'added threes'
-    puts self
     4.times {add_ship_of_size(2)}
-    puts 'added twos'
-    puts self
   end
   
   def add_ship_of_size(size)
@@ -59,11 +52,13 @@ class Board
 
   def valid?(candidate_cells)
     candidate_cells.each do |cell| 
-      return false if value_at(cell[0], cell[1]).to_s != ''
-      return false if value_at(cell[0]+1, cell[1]).to_s != ''
-      return false if value_at(cell[0]-1, cell[1]).to_s != ''
-      return false if value_at(cell[0], cell[1]+1).to_s != ''
-      return false if value_at(cell[0], cell[1]-1).to_s != ''
+      return false if [
+        value_at(cell[0], cell[1]).to_s != '',
+      value_at(cell[0]+1, cell[1]).to_s != '',
+      value_at(cell[0]-1, cell[1]).to_s != '',
+      value_at(cell[0], cell[1]+1).to_s != '',
+      value_at(cell[0], cell[1]-1).to_s != ''
+                      ].any?
     end
     true
   end
@@ -82,7 +77,7 @@ class Board
   end
 
   def to_s
-    rows.each{|row| print "#{row.map{|c| c == "" ? "O" : c}.join}\n"}
+    rows.each{|row| print "#{row.map{|c| c == "" ? "." : c}.join}\n"}
   end
 
   def owner
