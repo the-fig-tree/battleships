@@ -25,16 +25,11 @@ describe Board do
       expect(board.generate_ship_position(6)[0].length).to eq(2)
     end  
 
-    it 'should generate a valid ship position' do
-      player = double :player
-      board = Board.new(player)
-      expect(board.valid?(board.generate_valid_ship_position(6))).to be_true
-    end
-
     it 'should not put two ships next to each other' do
       player = double :player
       board = Board.new(player)
       board.iterate_board_index do |row, column|
+        puts "testing #{row}, #{column}"
         if board.value_at(row, column) == 's'
           if board.value_at(row+1, column) == 's' || board.value_at(row-1, column) =='s'
             # could be nil if at edge, nil.to_s == '' 

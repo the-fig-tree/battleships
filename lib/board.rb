@@ -20,14 +20,24 @@ class Board
   end
 
   def value_at(row, column)
+    # needed to stop wraparound
+    return nil if column < 0 || row < 0
     rows[row][column] if !rows[row].nil?
   end
 
   def add_ships
     add_ship_of_size(6)
+    puts "added 6"
+    puts self
     2.times {add_ship_of_size(4)}
+    puts 'added fours'
+    puts self
     2.times {add_ship_of_size(3)}
+    puts 'added threes'
+    puts self
     4.times {add_ship_of_size(2)}
+    puts 'added twos'
+    puts self
   end
   
   def add_ship_of_size(size)
@@ -37,18 +47,17 @@ class Board
   def generate_valid_ship_position(size)
     loop do
       candidate_cells = generate_ship_position(size)
-      puts 'in loop'
       # return candidate_cells if valid?(candidate_cells)
-      return candidate_cells if valid2?(candidate_cells)
+      return candidate_cells if valid?(candidate_cells)
     end
   end
 
-  def valid?(candidate_cells)
-    candidate_values = candidate_cells.map{|coords| value_at(coords[0], coords[1])}
-    candidate_values.all?{|value| value == ''} # and not touching other ships
-  end
+  # def valid?(candidate_cells)
+  #   candidate_values = candidate_cells.map{|coords| value_at(coords[0], coords[1])}
+  #   candidate_values.all?{|value| value == ''} # and not touching other ships
+  # end
 
-  def valid2?(candidate_cells)
+  def valid?(candidate_cells)
     candidate_cells.each do |cell| 
       return false if value_at(cell[0], cell[1]).to_s != ''
       return false if value_at(cell[0]+1, cell[1]).to_s != ''
@@ -70,6 +79,10 @@ class Board
       row, column = rand(11-size), rand(10) #starting
       candidate_cells = (0...size).map{|i| [row+i, column]}
     end
+  end
+
+  def to_s
+    rows.each{|row| print "#{row.map{|c| c == "" ? "O" : c}.join}\n"}
   end
 
   def owner
