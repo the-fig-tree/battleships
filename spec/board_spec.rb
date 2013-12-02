@@ -1,4 +1,4 @@
-require_relative '../lib/board'
+require 'board'
 
 describe Board do
 
@@ -69,7 +69,6 @@ describe Board do
       # every time rows is called
       board.instance_variable_set(:@rows,[['o','x','s','']])
       board.register_shot("D1")
-      puts board
       expect(board.rows).to eq([['o','x','s','o']])
     end
 
@@ -78,7 +77,6 @@ describe Board do
       board = Board.new(player)
       board.instance_variable_set(:@rows,[['o','x','s','']])
       board.register_shot("C1")
-      puts board
       expect(board.rows).to eq([['o','x','x','']])
     end
 

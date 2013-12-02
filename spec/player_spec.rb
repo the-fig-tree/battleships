@@ -13,10 +13,16 @@ describe Player do
     expect(player.board).to be_a(Board)
   end
 
-  it 'should know if there are still floating ships' do
+  it 'should say there are floating ships if there are' do
+    player.board.stub(:rows){[['','s','s','']]}
     expect(player.has_ships_still_floating?).to be_true
   end
   
+  it 'should say there are not still floating ships if there aren\'t' do
+    player.board.stub(:rows){[['o','x','','']]}
+    expect(player.has_ships_still_floating?).to be_false
+  end
   
+
 
 end
