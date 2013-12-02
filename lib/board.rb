@@ -29,6 +29,7 @@ class Board
       candidate_cells = generate_ship_position 
       break if valid?(candidate_cells)
     end
+    candidate_cells
   end
 
   def valid?(candidate_cells)
