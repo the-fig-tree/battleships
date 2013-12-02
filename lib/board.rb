@@ -92,9 +92,11 @@ class Board
     # turn s to x and '' to o
   end
 
-  def coordinate_parse(letter_and_number)
+  def coordinate_parse(input)
     # A3 -> [2,0]
-    return number_pair
+    column = input.match(/[a-zA-Z]/)[0].upcase.tr("A-J", "0-9").to_i 
+    row = input.match(/\d+/)[0].to_i - 1
+    [row, column]
   end
 
   
