@@ -62,7 +62,12 @@ describe Board do
       expect(board.coordinate_parse("b 6")).to eq([5,1])
     end
 
-
+    it "opponent view should not show ships" do
+      player = double :player
+      board = Board.new(player)
+      board.stub(:rows){[['o','x','s','']]}
+      expect(board.opponent_view).to eq([['o','x','','']])
+    end
 
   end
 
