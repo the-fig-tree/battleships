@@ -26,6 +26,10 @@ class Board
     rows[row][column] if !rows[row].nil?
   end
 
+  def set_value_at(row, column, val)
+    rows[row][column] = val
+  end
+
   def add_ships
     add_ship_of_size(6)
     2.times {add_ship_of_size(4)}
