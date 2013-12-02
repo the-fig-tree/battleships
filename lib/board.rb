@@ -91,11 +91,14 @@ class Board
   # This method should register the shot at the coordinates passed
   # hitting a ship or
   # just hitting the water.
-  def register_shot(at_coordinates)
-    rows at_coordinates.value_at = "o"
-    rowsat_coordinates] = 'o'
-   
-  end
+  def register_shot(*at_coordinates)
+    if value_at(*at_coordinates) == ''
+     set_value_at(*at_coordinates, 'o')
+    elsif value_at(*at_coordinates) == 's'
+     set_value_at(*at_coordinates, 'x')
+    end 
+  end 
+  
 
   def coordinate_parse(input)
     # A3 -> [2,0]

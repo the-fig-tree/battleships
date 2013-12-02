@@ -46,7 +46,6 @@ describe Board do
     it 'should register a shot in water with a o' do
       player = double :player
       board = Board.new(player)
-      board.register_shot([1,2]).to eq('o')
     end
   end
   context "should convert coordinates to indexs" do
