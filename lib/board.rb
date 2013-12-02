@@ -25,7 +25,7 @@ class Board
   end
 
   def generate_valid_ship_position
-    while true
+    loop do
       candidate_cells = generate_ship_position 
       break if valid?(candidate_cells)
     end
