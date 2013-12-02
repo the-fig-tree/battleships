@@ -26,6 +26,10 @@ class Board
     rows[row][column] if !rows[row].nil?
   end
 
+  def set_value_at(row, column, val)
+    rows[row][column] = val
+  end
+
   def add_ships
     add_ship_of_size(6)
     2.times {add_ship_of_size(4)}
@@ -93,9 +97,11 @@ class Board
    
   end
 
-  def coordinate_parse(letter_and_number)
+  def coordinate_parse(input)
     # A3 -> [2,0]
-    return number_pair
+    column = input.match(/[a-zA-Z]/)[0].upcase.tr("A-J", "0-9").to_i 
+    row = input.match(/\d+/)[0].to_i - 1
+    [row, column]
   end
 
   

@@ -49,6 +49,22 @@ describe Board do
       board.register_shot([1,2]).to eq('o')
     end
   end
+  context "should convert coordinates to indexs" do
 
+    it "should convert A3 to [2,0]" do
+      player = double :player
+      board = Board.new(player)
+      expect(board.coordinate_parse("A3")).to eq([2,0])
+    end
+
+    it "should convert b 6 to [5,1]" do
+      player = double :player
+      board = Board.new(player)
+      expect(board.coordinate_parse("b 6")).to eq([5,1])
+    end
+
+
+
+  end
 
 end
