@@ -42,14 +42,9 @@ describe Board do
         end
       end
     end
-
-    it 'should register a shot in water with a o' do
-      player = double :player
-      board = Board.new(player)
-    end
   end
+  
   context "should convert coordinates to indexs" do
-
     it "should convert A3 to [2,0]" do
       player = double :player
       board = Board.new(player)
@@ -61,14 +56,38 @@ describe Board do
       board = Board.new(player)
       expect(board.coordinate_parse("b 6")).to eq([5,1])
     end
+  end
+
+  context "playing battleships" do
+
+    it 'should register a shot in water with a o' do
+      player = double :player
+      board = Board.new(player)
+      # Need to set @rows since 
+      # board.stub(:rows){[['o','x','s','']]}
+      # can't be modified - it seems to be reevaluated
+      # every time rows is called
+      board.instance_variable_set(:@rows,[['o','x','s','']])
+      board.register_shot("D1")
+      puts board
+      expect(board.rows).to eq([['o','x','s','o']])
+    end
 
     it "opponent view should not show ships" do
       player = double :player
       board = Board.new(player)
-      board.stub(:rows){[['o','x','s','']]}
+      board.instance_variable_set(:@rows,[['o','x','s','']])
       expect(board.opponent_view).to eq([['o','x','','']])
     end
 
+  end
+
+  it 'should be able to set the value of a cell' do
+    player = double :player
+    board = Board.new(player)
+    board.instance_variable_set(:@rows,[['old']])
+    board.set_value_at(0, 0, 'new')
+    expect(board.value_at(0, 0)).to eq('new')
   end
 
 end

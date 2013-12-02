@@ -67,7 +67,6 @@ class Board
     true
   end
 
-
   def generate_ship_position(size)
     if rand(2).zero? 
       # horizontal ship
@@ -91,14 +90,14 @@ class Board
   # This method should register the shot at the coordinates passed
   # hitting a ship or
   # just hitting the water.
-  def register_shot(*at_coordinates)
-    if value_at(*at_coordinates) == ''
-     set_value_at(*at_coordinates, 'o')
-    elsif value_at(*at_coordinates) == 's'
-     set_value_at(*at_coordinates, 'x')
+  def register_shot(input)
+    co_ords = coordinate_parse(input)
+    if value_at(*co_ords) == ''
+     set_value_at(*co_ords, 'o')
+    elsif value_at(*co_ords) == 's'
+     set_value_at(*co_ords, 'x')
     end 
-  end 
-  
+  end
 
   def coordinate_parse(input)
     # A3 -> [2,0]
