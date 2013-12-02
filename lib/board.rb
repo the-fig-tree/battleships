@@ -7,8 +7,8 @@ class Board
   end
   
   def initialize_rows
-    rows = Array.new(10).map!{Array.new(10)}
-    iterate_board_index{|row, column| rows[row][column] ||= ''}
+    rows = Array.new(10,'').map!{Array.new(10,'')}
+    # iterate_board_index{|row, column| rows[row][column] ||= ''}
     rows
   end
 
@@ -88,8 +88,9 @@ class Board
   # hitting a ship or
   # just hitting the water.
   def register_shot(at_coordinates)
-    coordinate_parse(at_coordinates)
-    # turn s to x and '' to o
+    rows at_coordinates.value_at = "o"
+    rowsat_coordinates] = 'o'
+   
   end
 
   def coordinate_parse(letter_and_number)
