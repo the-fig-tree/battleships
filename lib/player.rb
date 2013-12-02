@@ -4,7 +4,17 @@ class Player
   #
   # You will have to create a board in there and randomize the
   # positioning of your ships on the board.
-  def initialize name
+  def initialize(name, board)
+    @name = name
+    @board = board
+  end
+
+  def name
+    @name
+  end
+
+  def board
+    @board
   end
   
   # Tells us if there are still ships that have not been hit
