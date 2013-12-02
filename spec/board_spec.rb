@@ -18,7 +18,15 @@ describe Board do
       expect(board.rows.flatten.select{|c| c == ''}.count).to eq 72
     end
 
-    it 'should have 6 s values in a row after adding aircraft carrier' do
+    it 'should generate 6 cells in a row, each with two coordinates' do
+      player = double :player
+      board = Board.new(player)
+      expect(board.generate_ship_position.length).to eq(6)
+      expect(board.generate_ship_position[0].length).to eq(2)
+    end  
+
+
+    xit 'should have 6 s values in a row after adding aircraft carrier' do
       player = double :player
       board = Board.new(player)
       # board.add_ships
