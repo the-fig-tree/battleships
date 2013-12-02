@@ -25,7 +25,10 @@ class Board
   end
 
   def generate_valid_ship_position
-    candidate_cells = generate_ship_position until valid?(candiate_cells)
+    while true
+      candidate_cells = generate_ship_position 
+      break if valid?(candidate_cells)
+    end
   end
 
   def valid?(candidate_cells)
