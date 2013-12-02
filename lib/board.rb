@@ -1,11 +1,24 @@
   class Board
   def initialize player
     @player = player
-    @board = initialize_board
+    @rows = initialize_rows
   end
   
-  def initialize_board
-    [(['']*10)]*10
+  def initialize_rows
+    rows = Array.new(10).map!{Array.new(10)}
+
+    add_ships
+
+    (0..9).each do |row|
+      (0..9).each do |column|
+        rows[row][column] ||= ''
+      end
+    end
+    rows
+  end
+
+  def add_ships
+    rows[rand(10)][rand(10)]
   end
 
   def owner
@@ -29,7 +42,7 @@
   # that you have
   # four different types
   def rows
-    @board
+    @rows
   end
   
   # This method returns an array containing 10 arrays with 10
