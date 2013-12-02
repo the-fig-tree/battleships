@@ -25,6 +25,12 @@ describe Board do
       expect(board.rows.flatten.select{|c| c == 's'}.count).to eq 6
     end
 
+    it 'should generate a valid ship position' do
+      player = double :player
+      board = Board.new(player)
+      expect(board.valid?(board.generate_valid_ship_position)).to be_true
+    end
+
     xit 'should not put two ships next to each other' do
       player = double :player
       board = Board.new(player)

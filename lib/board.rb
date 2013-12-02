@@ -39,7 +39,6 @@ class Board
 
   def generate_ship_position
     row, column = rand(5), rand(5) #starting
-    puts row, column
     # direction = [:right, :down].sample
     # if true # DIRECTION IS RIGHT
     candidate_cells = (0..5).map{|i| [row, column+i]}
