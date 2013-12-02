@@ -11,7 +11,7 @@ describe Board do
       expect(board.rows[0].length).to eq 10  
     end
 
-    xit 'should have 28 ship squares and 73 empty squares' do
+    it 'should have 28 ship squares and 72 empty squares' do
       player = double :player
       board = Board.new(player)
       expect(board.rows.flatten.select{|c| c == 's'}.count).to eq 28
@@ -21,21 +21,14 @@ describe Board do
     it 'should generate 6 cells in a row, each with two coordinates' do
       player = double :player
       board = Board.new(player)
-      expect(board.generate_ship_position.length).to eq(6)
-      expect(board.generate_ship_position[0].length).to eq(2)
+      expect(board.generate_ship_position(6).length).to eq(6)
+      expect(board.generate_ship_position(6)[0].length).to eq(2)
     end  
-
-
-    it 'should have 6 s values in a row after adding aircraft carrier' do
-      player = double :player
-      board = Board.new(player)
-      expect(board.rows.flatten.select{|c| c == 's'}.count).to eq 6
-    end
 
     it 'should generate a valid ship position' do
       player = double :player
       board = Board.new(player)
-      expect(board.valid?(board.generate_valid_ship_position)).to be_true
+      expect(board.valid?(board.generate_valid_ship_position(6))).to be_true
     end
 
     xit 'should not put two ships next to each other' do

@@ -21,12 +21,19 @@ class Board
   end
 
   def add_ships
-    generate_valid_ship_position.each{|cell| rows[cell[0]][cell[1]] = 's'}
+    add_ship_of_size(6)
+    2.times {add_ship_of_size(4)}
+    2.times {add_ship_of_size(3)}
+    4.times {add_ship_of_size(2)}
+  end
+  
+  def add_ship_of_size(size)
+    generate_valid_ship_position(size).each{|cell| rows[cell[0]][cell[1]] = 's'}
   end
 
-  def generate_valid_ship_position
+  def generate_valid_ship_position(size)
     loop do
-      candidate_cells = generate_ship_position 
+      candidate_cells = generate_ship_position(size)
       return candidate_cells if valid?(candidate_cells)
     end
   end
@@ -36,11 +43,16 @@ class Board
     candidate_values.all?{|value| value == ''} # and not touching other ships
   end
 
-  def generate_ship_position
-    row, column = rand(5), rand(5) #starting
-    # direction = [:right, :down].sample
-    # if true # DIRECTION IS RIGHT
-    candidate_cells = (0..5).map{|i| [row, column+i]}
+  def generate_ship_position(size)
+    if rand(2).zero? 
+      # horizontal ship
+      row, column = rand(10), rand(11-size)
+      candidate_cells = (0...size).map{|i| [row, column+i]}
+    else
+      #vertical ship
+      row, column = rand(11-size), rand(10) #starting
+      candidate_cells = (0...size).map{|i| [row+i, column]}
+    end
   end
 
   def owner
