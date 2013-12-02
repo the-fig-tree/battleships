@@ -8,7 +8,7 @@ class Player
   # positioning of your ships on the board.
   def initialize (name)
     @name = name
-    @board = Board.new(name)
+    @board = Board.new(self)
   end
 
   def name
